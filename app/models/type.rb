@@ -9,5 +9,5 @@
 #
 
 class Type < ApplicationRecord
-	has_many: expenses
-end
+	has_many :expenses
+end 
