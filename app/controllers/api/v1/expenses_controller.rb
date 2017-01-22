@@ -1,4 +1,6 @@
 class Api::V1::ExpensesController < ApplicationController
+	skip_before_action :verify_authenticity_token
+	
 	def index
 		@expenses = Expense.all
 		render json: @expenses
@@ -14,7 +16,7 @@ class Api::V1::ExpensesController < ApplicationController
 	end
 	
 	private
-		def product_params
+		def expense_params
 			params.require(:expense).permit(:concept, :value, :date, :category_id, :type_id)
 		end
 
