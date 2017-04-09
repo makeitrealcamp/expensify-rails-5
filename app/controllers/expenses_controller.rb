@@ -24,6 +24,8 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
+    @expense = Expense.destroy(params[:id])
+    @expenses = Expense.all
   end
 
   private
