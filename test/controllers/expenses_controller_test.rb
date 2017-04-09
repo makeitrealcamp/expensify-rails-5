@@ -28,6 +28,30 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
     assert_equal categories(:education).id, expense.category_id
   end
 
+  test "get edit should assign expense" do
+    get edit_expense_path(expenses(:school)), xhr: true
+    assert_not_nil assigns(:expense)
+  end
+
+  test "should patch update" do
+    patch expense_path(id: expenses(:roadTrip)), params: { expense: { type: "withdrawal", concept: "The concept", amount: 4554, category_id: categories(:education).id } }, xhr: true
+    assert_response :success
+  end
+
+  test "should update expense" do
+    id = expenses(:roadTrip).id
+    assert_no_difference "Expense.count" do
+      patch expense_path(id: id), params: { expense: { type: "purchase", date: 1.month.ago.to_date, concept: "The concept", amount: 100, category_id: categories(:education).id } }, xhr: true
+    end
+
+    expense = Expense.find(id)
+    assert_equal "purchase", expense.type
+    assert_equal 1.month.ago.to_date, expense.date
+    assert_equal "The concept", expense.concept
+    assert_equal 100, expense.amount
+    assert_equal categories(:education).id, expense.category_id
+  end
+
   test "should destroy a expense" do
     assert_difference "Expense.count", -1 do
       delete expense_path(expenses(:school)), xhr: true
