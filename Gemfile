@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 2.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'faker'
+gem 'bootstrap-datepicker-rails'
 
 
 group :development, :test do
