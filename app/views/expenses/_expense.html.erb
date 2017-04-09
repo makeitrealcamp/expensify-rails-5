@@ -1,0 +1,23 @@
+<tr>
+  <td class="date">
+    <div class="day"><%= expense.date.day %></div>
+    <%# Adding Date/Time Formats http://guides.rubyonrails.org/i18n.html#adding-date-time-formats %>
+    <div class="month"><%= l(expense.date, format: '%b') %></div>
+  </td>
+  <td>
+    <div>
+      <span class="type"><%= expense.type.capitalize %></span>
+    </div>
+    <div>
+      <span class="concept"><%= expense.concept %></span>
+    </div>
+  </td>
+  <td class="category text-right"><%= expense.category.name %></td>
+  <td class="text-right" style="width: 170px;">
+  <%# http://api.rubyonrails.org/classes/ActionView/Helpers/NumberHelper.html#method-i-number_to_currency %>
+    <div class="amount"><%= number_to_currency(expense.amount) %></div>
+    <div class="actions">
+      <%= link_to '<span class="glyphicon glyphicon-edit"></span> Edit'.html_safe, edit_expense_path(expense), remote: true, class: "edit" %>
+      <%= link_to '<span class="glyphicon glyphicon-trash"></span> Delete'.html_safe, expense, remote: true, method: :delete, class: "delete", data: { confirm: "Are you sure you want to delete this expense?" } %>
+  </td>
+</tr>
