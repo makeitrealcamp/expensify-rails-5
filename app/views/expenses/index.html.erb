@@ -8,11 +8,11 @@
         <% end %>
       </div>
 
-      <h4 class="filter-header">Categoría <span>Selecciona para filtrar</span></h4>
+      <h4 class="filter-header">Category <span>Choose to filter</span></h4>
       <div class="list-group filter-type">
-        <a href="#" class="list-group-item">Restaurants</a>
-        <a href="#" class="list-group-item">Car</a>
-        <!-- more categories  -->
+        <% Category.all.each do |category| %>
+          <%= link_to_category(category) %>
+        <% end %>
       </div>
     </div>
     <div class="col-md-9 index-data">

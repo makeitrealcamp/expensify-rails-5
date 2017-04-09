@@ -5,6 +5,9 @@ class ExpensesController < ApplicationController
     @expenses = Expense.between(@month..@month.end_of_month).order("date DESC")
     # Filter by type
     @expenses = @expenses.where(type: params[:type]) if params[:type]
+    # Filter by category
+    @expenses = @expenses.where(category_id: params[:category_id]) if params[:category_id]
+    
     @total = @expenses.map(&:amount).reduce(&:+)
     @tab = :expenses
   end
