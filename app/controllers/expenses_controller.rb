@@ -3,6 +3,7 @@ class ExpensesController < ApplicationController
     @month = Date.new(year(params), month(params), 1)
     # Filter by month
     @expenses = Expense.between(@month..@month.end_of_month).order("date DESC")
+    @total = @expenses.map(&:amount).reduce(&:+)
     @tab = :expenses
   end
 
@@ -15,6 +16,7 @@ class ExpensesController < ApplicationController
     
     @month = Date.new(year(params), month(params), 1)
     @expenses = Expense.between(@month..@month.end_of_month).order("date DESC")
+    @total = @expenses.map(&:amount).reduce(&:+)
   end
 
   def edit
@@ -27,6 +29,7 @@ class ExpensesController < ApplicationController
     
     @month = Date.new(year(params), month(params), 1)
     @expenses = Expense.between(@month..@month.end_of_month).order("date DESC")
+    @total = @expenses.map(&:amount).reduce(&:+)
   end
 
   def destroy
@@ -34,6 +37,7 @@ class ExpensesController < ApplicationController
     
     @month = Date.new(year(params), month(params), 1)
     @expenses = Expense.between(@month..@month.end_of_month).order("date DESC")
+    @total = @expenses.map(&:amount).reduce(&:+)
   end
 
   private
