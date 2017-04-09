@@ -13,6 +13,15 @@ class ExpensesController < ApplicationController
     @expenses = Expense.all
   end
 
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
+  end
+
   private
     def expenses_params
       params.require(:expense).permit(:type, :date, :concept, :category_id, :amount)
