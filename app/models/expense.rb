@@ -10,6 +10,9 @@ class Expense < ApplicationRecord
   validates :concept, presence: true
   validates :amount, presence: true, numericality: { greater_than: 0 }
 
+  # http://api.rubyonrails.org/classes/ActiveRecord/Scoping/Named/ClassMethods.html#method-i-scope
+  scope :between, lambda { |range| where(date: range) }
+  
   def default_date
     self.date ||= Date.current
   end

@@ -17,11 +17,13 @@
   <div class="col-md-12">
      <%= link_to '<span class="glyphicon glyphicon-plus"></span> New Expense'.html_safe, new_expense_path, remote: true, class: "btn btn-success pull-left" %>
     <h4 class="dropdown pull-right">
-      <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">April 2016 <span class="caret"></span></button>
+      <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%=l @month, format: '%B %Y'%> <span class="caret"></span></button>
       <ul class="dropdown-menu" role="menu">
-        <li role="presentation"><a href="#">April 2016</a></li>
-        <li role="presentation"><a href="#">March 2016</a></li>
-        <!-- more months -->
+         <% (0..11).each do |i| date = i.months.ago %> 
+        <%# a href="/expenses?month=04&year=2017" %>
+        <%# The query_parameters hash contains parameters that were sent as part of the query string %>
+        <li role="presentation"><%= link_to l(date, format: '%B %Y'), expenses_path(request.query_parameters.merge(year: l(date, format: '%Y'), month: l(date, format: '%m'))) %></li>
+        <% end %>
       </ul>
     </h4>
   </div>
