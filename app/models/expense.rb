@@ -5,4 +5,7 @@ class Expense < ApplicationRecord
   belongs_to :category
   enum type: [:purchase, :withdrawal, :transfer, :payment]
 
+  validates :type, presence: true
+  validates :concept, presence: true
+  validates :amount, presence: true, numericality: { greater_than: 0 }
 end

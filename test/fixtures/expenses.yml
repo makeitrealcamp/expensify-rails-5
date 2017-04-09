@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+roadTrip:
   type: 1
-  concept: MyString
-  date: 2017-04-09
+  concept: My Road Trip
+  date: <%= Date.current %>
   amount: 9.99
-  category: one
+  category: travel
 
-two:
+school:
   type: 1
-  concept: MyString
-  date: 2017-04-09
+  concept: My school
+  date: <%= Date.current %>
   amount: 9.99
-  category: two
+  category: education
