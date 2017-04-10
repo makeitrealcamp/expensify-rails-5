@@ -1,20 +1,20 @@
 <div class="container">
   <div class="row">
     <div class="total-box col-md-3">
-      $200,000
-      <span>HOY</span>
+      <%= number_to_currency(spent(today), precision: 0) %>
+      <span>TODAY</span>
     </div>
     <div class="total-box col-md-3">
-      $140,000
-      <span>AYER</span>
+      <%= number_to_currency(spent(yesterday), precision: 0) %>
+      <span>YESTERDAY</span>
     </div>
     <div class="total-box col-md-3">
-      $7,500,000
-      <span>ESTE MES</span>
+      <%= number_to_currency(spent(this_month), precision: 0) %>
+      <span>THIS MONTH</span>
     </div>
     <div class="total-box col-md-3">
-      $6,200,000
-      <span>MES PASADO</span>
+      <%= number_to_currency(spent(last_month), precision: 0) %>
+      <span>LAST MONTH</span>
     </div>
   </div>
 
