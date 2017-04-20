@@ -2,7 +2,7 @@ class Api::V1::ExpensesController < ApplicationController
   protect_from_forgery with: :null_session
 
   def index
-    render json: Expense.all
+    render json: JSON.pretty_generate(JSON.parse(Expense.all.to_json))
   end
 
   def create
