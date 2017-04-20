@@ -1,20 +1,20 @@
 <div class="container">
   <div class="row">
     <div class="total-box col-md-3">
-      $200,000
-      <span>HOY</span>
+      <%= number_to_currency(spent(today), precision: 0) %>
+      <span>TODAY</span>
     </div>
     <div class="total-box col-md-3">
-      $140,000
-      <span>AYER</span>
+      <%= number_to_currency(spent(yesterday), precision: 0) %>
+      <span>YESTERDAY</span>
     </div>
     <div class="total-box col-md-3">
-      $7,500,000
-      <span>ESTE MES</span>
+      <%= number_to_currency(spent(this_month), precision: 0) %>
+      <span>THIS MONTH</span>
     </div>
     <div class="total-box col-md-3">
-      $6,200,000
-      <span>MES PASADO</span>
+      <%= number_to_currency(spent(last_month), precision: 0) %>
+      <span>LAST MONTH</span>
     </div>
   </div>
 
@@ -56,3 +56,128 @@
     </div>
   </div>
 </div>
+
+<%# http://canvasjs.com/docs/charts/basics-of-creating-html5-chart %>
+<script type="text/javascript">
+  
+  var sixMonthData = <%= month(type(last_six_months)) %>;
+  var byDayData = <%= day(type_day(by_day)) %>;
+  var categoryData = <%= category(current_month).to_json.html_safe %>;
+  var currentMonthData = <%= day(accumulated(accumulated_curren_month)) %>;
+  var pastMonthData = <%= day(accumulated(accumulated_past_month)) %>;
+
+  var expensesChart = function(target, data) {
+    new CanvasJS.Chart(target,
+      {
+        backgroundColor: 'transparent',
+        legend: {
+          fontSize: 10,
+          fontColor: "#d9d9d9"
+        },
+        axisX: {
+          lineThickness: 0
+        },
+        axisY: {
+          gridThickness: 1,
+          gridColor: '#444',
+          tickColor: '#444',
+          tickThickness: 1,
+          lineThickness: 0
+        },
+        data: [
+          {
+            type: "stackedColumn",
+            showInLegend: true,
+            name: 'Purchases',
+            dataPoints: dataGenerate(data, 'purchase')
+          },
+          {
+            type: "stackedColumn",
+            showInLegend: true,
+            name: "Withdrawals",
+            dataPoints: dataGenerate(data, 'withdrawal')
+          },
+          {
+            type: "stackedColumn",
+            showInLegend: true,
+            name: "Transfers",
+            dataPoints: dataGenerate(data, 'transfer')
+          },
+          {
+            type: "stackedColumn",
+            showInLegend: true,
+            name: "Payments",
+            dataPoints: dataGenerate(data, 'payment')
+          }
+        ]
+      }
+    ).render();
+  };
+
+  var dataGenerate = function(data, type) {
+    return data.map(function(point) {
+      return { y: parseFloat(point[type]), label: point['date'] };
+    });
+  };
+
+  expensesChart("expenses-chart",  sixMonthData);
+  expensesChart("daily-expenses-chart", byDayData);
+
+  console.log(sixMonthData);
+  console.log(byDayData);
+
+  new CanvasJS.Chart("category-chart",
+    {
+      backgroundColor: 'transparent',
+      data: [
+        {
+          type: "doughnut",
+          dataPoints: categoryData,
+          lineThickness: 5
+        }
+      ]
+    }
+  ).render();
+
+  new CanvasJS.Chart("month-acc",
+    {
+      backgroundColor: 'transparent',
+      legend: {
+        fontSize: 10,
+        fontColor: "#d9d9d9"
+      },
+      axisX: {
+        lineThickness: 0
+      },
+      axisY: {
+        gridThickness: 1,
+        gridColor: '#444',
+        tickColor: '#444',
+        tickThickness: 1,
+        lineThickness: 0
+      },
+      data: [
+        {
+          type: "area",
+          showInLegend: true,
+          markerType: "none",
+          name: "Past Month",
+          color: "rgba(108, 191, 63,.5)",
+          dataPoints: pastMonthData.map(function(point) {
+            return { y: parseFloat(point['amount']), label: point['date'] };
+          })
+        },
+        {
+          type: "area",
+          showInLegend: true,
+          markerType: "none",
+          name: "Current Month",
+          color: "rgba(73, 61, 142,.8)",
+          dataPoints: currentMonthData.map(function(point) {
+            return { y: parseFloat(point['amount']), label: point['date'] };
+          })
+        }
+      ]
+    }
+  ).render();
+</script>

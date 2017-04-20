@@ -1,0 +1,56 @@
+<div class="modal expense-modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content"> <%#Note the remote :true. Now, the form will be submitted by Ajax rather than by the browser's normal submit mechanism%>
+      <%= form_for @expense, remote: true do |f| %>
+        <div class="modal-header">
+          <button class="close cancel" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Expense</h4>
+        </div>
+        <div class="modal-body">
+            <!-- type and executed_at -->
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= f.label :type %>
+                  <%= f.select :type, Expense.types.keys.map { |w| [w.humanize, w] }, {}, class: "form-control" %>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= f.label :date %>
+                  <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+                    <%= f.text_field :date, class: "form-control text-right" %>
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :concept, class: "control-label" %>
+              <%= f.text_field :concept, class: "form-control" %>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= f.label :category %>
+                  <%= f.collection_select :category_id, Category.all, :id, :name, {}, class: "form-control" %>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <%= f.label :amount, class: "control-label" %>
+                  <%= f.number_field :amount, class: "form-control text-right" %>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <%= f.submit class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
