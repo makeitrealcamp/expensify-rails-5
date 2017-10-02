@@ -18,15 +18,21 @@
     <div class="col-md-9 index-data">
       <div class="row" style="margin-top: 10px;">
         <div class="summary-box col-md-4 text-center">
-          <div class="summary-value">$2,500,000</div>
+          <div class="summary-value">
+            <%total = 0%>
+            <%@expenses.each do |i| %>
+            <%total += i.amount%>
+            <%end%>
+            <%=total%>
+          </div>
           <div class="summary-label">Total</div>
         </diV>
         <div class="summary-box col-md-4 text-center">
-          <div class="summary-value">2</div>
+          <div class="summary-value"><%= tansactions = @expenses.count %></div>
           <div class="summary-label">Transactions</div>
         </div>
         <div class="summary-box col-md-4 text-center">
-          <div class="summary-value">$1,000,000</div>
+          <div class="summary-value"><%=total/tansactions%></div>
           <div class="summary-label">Average</div>
         </div>
       </div>
