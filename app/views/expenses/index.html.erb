@@ -3,15 +3,21 @@
     <div class="col-md-3">
       <h4 class="filter-header">Transaction Type <span>Choose to filter</span></h4>
       <div class="list-group filter-type">
-        <a href="#" class="list-group-item">Purchase</a>
-        <a href="#" class="list-group-item">Withdrawal</a>
+        <% @types.each do |type|%>
+        <%= link_to type.name, expenses_path(type_id: type.id), class: 'list-group-item', remote: true %>
+        <% end %>
+        <!-- <a href="#" class="list-group-item">Purchase</a> -->
+        <!-- <a href="#" class="list-group-item">Withdrawal</a> -->
         <!-- more transaction types -->
       </div>
 
       <h4 class="filter-header">Categoría <span>Selecciona para filtrar</span></h4>
       <div class="list-group filter-type">
-        <a href="#" class="list-group-item">Restaurants</a>
-        <a href="#" class="list-group-item">Car</a>
+        <% @categories.each do |category|%>
+        <%= link_to category.name, expenses_path(category_id: category.id), class: 'list-group-item', remote: true %>
+        <% end %>
+        <!-- <a href="#" class="list-group-item">Restaurants</a> -->
+        <!-- <a href="#" class="list-group-item">Car</a> -->
         <!-- more categories  -->
       </div>
     </div>
@@ -55,27 +61,30 @@
           </tr>
         </thead>
         <tbody>
+          <% @expenses.each do |expense| %>
           <tr>
             <td class="date">
-              <div class="day">24</div>
-              <div class="month">Apr</div>
+              <div class="day"><%= expense.date.strftime('%d')%></div>
+              <div class="month"><%= expense.date.strftime('%b')%></div>
             </td>
             <td>
               <div>
-                <span class="type">Purchase</span>
+                <span class="type"><%= @types.find {|i| i.id == expense.type_id}.name%></span>
               </div>
               <div>
-                <span class="concept">Example concept</span>
+                <span class="concept"><%= expense.concept%></span>
               </div>
             </td>
-            <td class="category text-right">Restauratns</td>
+            <td class="category text-right"><%= @categories.find {|i| i.id == expense.category_id}.name%></td>
             <td class="text-right" style="width: 170px;">
-              <div class="amount">$1,000,000</div>
+              <div class="amount"><%=  expense.amount %></div>
               <div class="actions">
                 <a href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                 <a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
             </td>
           </tr>
+          <% end %>
+
         </tbody>
       </table>
     </div>
