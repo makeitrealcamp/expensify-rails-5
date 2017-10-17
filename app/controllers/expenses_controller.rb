@@ -5,6 +5,12 @@ class ExpensesController < ApplicationController
 
     @categories = Category.all
     @types = Type.all
+    @months = []
+    12.times do |i|
+      @months << DateTime.now.months_ago(i).strftime("%B %Y")
+    end
+
+    @current_month = @months[params[:month_filter]]
 
     puts "TYPE_ID: #{type_id}"
     puts "CATEGORY_ID: #{category_id}"

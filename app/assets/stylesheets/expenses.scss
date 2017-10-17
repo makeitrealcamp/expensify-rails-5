@@ -15,6 +15,7 @@
 }
 
 a.list-group-item { color: #808487; }
+a.list-group-item:visited { background-color: $link-color; color: #fff }
 
 .summary-box {
   padding: 10px;
