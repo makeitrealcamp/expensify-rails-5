@@ -14,7 +14,7 @@
     <div class="summary-label">Transactions</div>
   </div>
   <div class="summary-box col-md-4 text-center">
-    <div class="summary-value"><%=total/tansactions%></div>
+    <div class="summary-value"><%=tansactions == 0 ? 0 : total/tansactions %></div>
     <div class="summary-label">Average</div>
   </div>
 </div>
@@ -23,14 +23,14 @@
   <div class="col-md-12">
     <a href="#" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
     <h4 class="dropdown pull-right">
-      <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%= @current_month %><span class="caret"></span></button>
+      <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%= @current_month.strftime("%B %Y") %><span class="caret"></span></button>
       <ul class="dropdown-menu" role="menu">
-        <% @months.each do |month, index| %>
-        <li role="presentation"><%= link_to month, expenses_path(month_filter: index), remote: true, class: 'bla'  %></li>
+        <% @months.each_with_index do |month, index| %>
+        <li role="presentation"><%= link_to month.strftime("%B %Y"), expenses_path(month_filter: index), remote: true, class: 'bla'  %></li>
         <% end %>
       </ul>
-    </h4>
-  </div>
+  </h4>
+</div>
 </div>
 
 <table id="expenses-table" class="table table-hover" style="margin-top: 20px;">
