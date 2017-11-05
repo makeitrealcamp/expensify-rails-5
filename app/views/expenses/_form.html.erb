@@ -26,7 +26,7 @@
       <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%= @current_month %><span class="caret"></span></button>
       <ul class="dropdown-menu" role="menu">
         <% @months.each do |month, index| %>
-        <li role="presentation"><%= link_to month, expenses_path(month_filter: index), remote: true  %></li>
+        <li role="presentation"><%= link_to month, expenses_path(month_filter: index), remote: true, class: 'bla'  %></li>
         <% end %>
       </ul>
     </h4>

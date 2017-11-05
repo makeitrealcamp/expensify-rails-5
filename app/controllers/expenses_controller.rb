@@ -10,7 +10,7 @@ class ExpensesController < ApplicationController
       @months << DateTime.now.months_ago(i).strftime("%B %Y")
     end
 
-    @current_month = @months[params[:month_filter]]
+    @current_month = @months[params[:month_filter].to_i]
 
     puts "TYPE_ID: #{type_id}"
     puts "CATEGORY_ID: #{category_id}"
@@ -22,6 +22,5 @@ class ExpensesController < ApplicationController
       @expenses = Expense.where("category_id = ?", category_id) if (category_id != nil && type_id == nil)
       @expenses = Expense.where("type_id = ?", type_id) if (category_id == nil && type_id != nil)
     end
-
   end
 end
