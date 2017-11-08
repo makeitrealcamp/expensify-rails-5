@@ -1,13 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <%= form_tag(expenses_path, remote: true, method: 'GET') do %>
       <h4 class="filter-header">Transaction Type <span>Choose to filter</span></h4>
 
       <div class="list-group filter-type">
-        <% @types.each do |type| %>
-        <%= radio_button_tag(:type_id, type.id) %>
-        <%= label_tag(:type_name, type.name) %> <br>
+        <% @types.each do |type|%>
+        <%= link_to type.name, expenses_path(type_id: type.id), class: 'list-group-item', tid: type.id%>
         <% end %>
       </div>
 
@@ -15,13 +13,9 @@
 
       <div class="list-group filter-category">
         <% @categories.each do |category|%>
-        <%= radio_button_tag(:category_id, category.id) %>
-        <%= label_tag(:category_name, category.name) %> <br>
+        <%= link_to category.name, expenses_path(category_id: category.id), class: 'list-group-item', cid: category.id%>
         <% end %>
       </div>
-      
-      <%= submit_tag "buscar"%>
-      <% end %>
 
     </div>
     <div class="col-md-9 index-data">
