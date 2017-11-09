@@ -10,7 +10,11 @@ $(document).ready(function() {
     $.ajax({
       type: "GET",
       url: `/expenses?type_id=${url.type}&category_id=${url.category}&date=${url.date}`,
-    });
+      format: 'js'
+    })
+    .done(function(data) {
+      console.log('Se realizó con éxito el llamado ajax!')
+    })
   })
   $(document).on('click','.month-item', function(e){
     e.preventDefault()
@@ -20,7 +24,10 @@ $(document).ready(function() {
     $.ajax({
       type: "GET",
       url: `/expenses?type_id=${url.type}&category_id=${url.category}&date=${url.date}`,
-    });
+      format: 'js'
+    }).done(function(data) {
+        console.log('Se realizó con éxito el llamado ajax!')
+    })
   })
 
   build_url = function() {

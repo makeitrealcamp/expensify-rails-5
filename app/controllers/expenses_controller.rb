@@ -1,5 +1,6 @@
 class ExpensesController < ApplicationController
   respond_to :html, :js
+  # respond_to :js
 
   def index
     @categories = Category.all
@@ -37,7 +38,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js
+      format.js {render :partial => 'form'}
     end
 
   end

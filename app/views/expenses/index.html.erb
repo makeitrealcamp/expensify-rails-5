@@ -5,7 +5,7 @@
 
       <div class="list-group filter-type">
         <% @types.each do |type|%>
-        <%= link_to type.name, expenses_path(type_id: type.id), class: 'list-group-item', tid: type.id%>
+        <%= link_to type.name, expenses_path, class: 'list-group-item', tid: type.id%>
         <% end %>
       </div>
 
@@ -13,7 +13,7 @@
 
       <div class="list-group filter-category">
         <% @categories.each do |category|%>
-        <%= link_to category.name, expenses_path(category_id: category.id), class: 'list-group-item', cid: category.id%>
+        <%= link_to category.name, expenses_path, class: 'list-group-item', cid: category.id%>
         <% end %>
       </div>
 
