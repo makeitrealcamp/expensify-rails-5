@@ -18,8 +18,45 @@
       </div>
 
     </div>
-    <div class="col-md-9 index-data">
+    <div class="col-md-9">
+      <div class="row" style="margin-top: 10px;">
+        <div class="summary-box col-md-4 text-center">
+          <div class="summary-value">
+            <%total = 0%>
+            <%@expenses.each do |i| %>
+            <%total += i.amount%>
+            <%end%>
+            <%=total%>
+          </div>
+          <div class="summary-label">Total</div>
+        </diV>
+        <div class="summary-box col-md-4 text-center">
+          <div class="summary-value"><%= tansactions = @expenses.count %></div>
+          <div class="summary-label">Transactions</div>
+        </div>
+        <div class="summary-box col-md-4 text-center">
+          <div class="summary-value"><%=tansactions == 0 ? 0 : total/tansactions %></div>
+          <div class="summary-label">Average</div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-12">
+          <a href="#" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
+          <h4 class="dropdown pull-right">
+            <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%= @current_month.strftime("%B %Y") %><span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+              <% @months.each_with_index do |month, index| %>
+              <li role="presentation"><%= link_to month.strftime("%B %Y"), expenses_path, month_index: index, class: 'month-item'  %></li>
+              <% end %>
+            </ul>
+          </h4>
+        </div>
+      </div>
+      <div class="index-data">
       <%=render("form")%>
+      </div>
     </div>
   </div>
+</div>
 </div>

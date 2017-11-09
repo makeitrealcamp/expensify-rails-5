@@ -14,6 +14,7 @@ class ExpensesController < ApplicationController
     month = @current_month.month
     year = @current_month.year
 
+    puts "CURRENT MONTH: #{@current_month}"
     puts "MONTH: #{@current_month.month}"
     puts "YEAR: #{@current_month.year}"
     puts "TYPE_ID: #{type_id}"
@@ -37,7 +38,7 @@ class ExpensesController < ApplicationController
     end
 
     respond_to do |format|
-      format.js 
+      format.js
       format.html
     end
 
