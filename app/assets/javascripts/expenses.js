@@ -20,6 +20,8 @@ $(document).ready(function() {
     e.preventDefault()
     $('.month-item').removeClass('visited')
     $(this).addClass('visited')
+    // console.log($(this).text());
+    $('.dropdown-toggle').text($(this).text())
     build_url()
     $.ajax({
       type: "GET",
