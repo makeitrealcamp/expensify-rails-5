@@ -16,10 +16,10 @@
         <%= link_to category.name, expenses_path, class: 'list-group-item', cid: category.id%>
         <% end %>
       </div>
-
     </div>
+
     <div class="col-md-9">
-      <div class="row" style="margin-top: 10px;">
+      <div class="row summary-container" style="margin-top: 10px;">
         <div class="summary-box col-md-4 text-center">
           <div class="summary-value">
             <%total = 0%>
@@ -44,24 +44,19 @@
         <div class="col-md-12">
           <a href="#" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
           <h4 class="dropdown pull-right">
-            <!-- <select>
-              <% @months.each_with_index do |month, index| %>
-            <option value = '<%=month.strftime("%B %Y")%>' month_index=<%=index%> class='month-item'><%=month.strftime("%B %Y")%></option>
-              <% end %>
-            </select> -->
             <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%= @current_month.strftime("%B %Y") %><span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
-            <% @months.each_with_index do |month, index| %>
-            <li role="presentation"><%= link_to month.strftime("%B %Y"), expenses_path, month_index: index, class: 'month-item'  %></li>
-            <% end %>
-          </ul>
-        </h4>
+              <% @months.each_with_index do |month, index| %>
+              <li role="presentation"><%= link_to month.strftime("%B %Y"), expenses_path, month_index: index, class: 'month-item'  %></li>
+              <% end %>
+            </ul>
+          </h4>
+        </div>
+      </div>
+      <div class="index-data">
+        <%=render("form")%>
       </div>
     </div>
-    <div class="index-data">
-      <%=render("form")%>
-    </div>
   </div>
-</div>
 </div>
 </div>
