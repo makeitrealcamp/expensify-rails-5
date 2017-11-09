@@ -1,5 +1,6 @@
 
 $(document).ready(function() {
+
   var url = {'type': '', 'category': '', 'date': ''}
 
   $(document).on('click','.list-group-item', function(e){
@@ -13,7 +14,6 @@ $(document).ready(function() {
       format: 'js'
     })
     .done(function(data) {
-      console.log('Se realizó con éxito el llamado ajax!')
     })
   })
   $(document).on('click','.month-item', function(e){
@@ -26,11 +26,11 @@ $(document).ready(function() {
       url: `/expenses?type_id=${url.type}&category_id=${url.category}&date=${url.date}`,
       format: 'js'
     }).done(function(data) {
-        console.log('Se realizó con éxito el llamado ajax!')
     })
   })
 
   build_url = function() {
+
     $('.filter-type .list-group-item.visited').attr('tid') == undefined ? url.type = '' : url.type =
     $('.filter-type .list-group-item.visited').attr('tid')
 

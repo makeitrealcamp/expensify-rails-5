@@ -37,8 +37,8 @@ class ExpensesController < ApplicationController
     end
 
     respond_to do |format|
+      format.js 
       format.html
-      format.js {render :partial => 'form'}
     end
 
   end
