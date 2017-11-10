@@ -42,4 +42,11 @@ $(document).ready(function() {
 
     console.log(url)
   }
+
+  $('document').on('click','.create-expense', function(){
+    $('.new-expense-form').fadeOut(200)
+  })
+  $('document').on('click', '.cancel-new-expense', function(){
+    $('.new-expense-form').fadeOut(200)
+  })
 })

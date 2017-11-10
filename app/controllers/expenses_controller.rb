@@ -14,11 +14,11 @@ class ExpensesController < ApplicationController
     month = @current_month.month
     year = @current_month.year
 
-    puts "CURRENT MONTH: #{@current_month}"
-    puts "MONTH: #{@current_month.month}"
-    puts "YEAR: #{@current_month.year}"
-    puts "TYPE_ID: #{type_id}"
-    puts "CATEGORY_ID: #{category_id}"
+    # puts "CURRENT MONTH: #{@current_month}"
+    # puts "MONTH: #{@current_month.month}"
+    # puts "YEAR: #{@current_month.year}"
+    # puts "TYPE_ID: #{type_id}"
+    # puts "CATEGORY_ID: #{category_id}"
 
     if category_id == nil && type_id == nil
       puts 'SIN FILTRO'
@@ -45,17 +45,29 @@ class ExpensesController < ApplicationController
   end
 
   def new
-
+    @expense = Expense.new
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def create
-
+    @expense = Expense.new safe_params
+    if @expense.save
+      flash[:success] = "Expense successfully created"
+      puts 'Se creo el expense'
+      # flash[:success] = "Expense successfully created"
+      redirect_to expenses_path
+    else
+      render :new
+    end
   end
 
   protected
 
   def safe_params
-    params.require(:expense).permit(:type_id, :date, :category_id)
+    params.require(:expense).permit(:type_id, :date, :category_id, :concept, :amount)
   end
 
 end

@@ -17,7 +17,7 @@
         <% end %>
       </div>
     </div>
-
+    <div class='new-indicator'></div>
     <div class="col-md-9">
       <div class="row summary-container" style="margin-top: 10px;">
         <div class="summary-box col-md-4 text-center">
@@ -42,7 +42,8 @@
 
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-12">
-          <a href="#" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
+          <%= link_to "<span class='glyphicon glyphicon-plus'></span> New Expense".html_safe, new_expense_path, class: 'btn btn-success pull-left', remote: true %>
+          <!-- <a href="#" class="btn btn-success pull-left"> New Expense</a> -->
           <h4 class="dropdown pull-right">
             <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%= @current_month.strftime("%B %Y") %><span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
