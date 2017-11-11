@@ -5,7 +5,7 @@ class ExpensesController < ApplicationController
   def index
     @categories = Category.all
     @types = Type.all
-    @months = generate_months
+    @months = generate_last_n_months (12)
 
     @current_month = @months[params[:date].to_i]
 
@@ -22,19 +22,19 @@ class ExpensesController < ApplicationController
 
     if category_id == nil && type_id == nil
       puts 'SIN FILTRO'
-      @expenses = Expense.find_year(year).find_month(month)
+      @expenses = Expense.find_year(year).find_month(month).order(date: :desc)
     end
     if (category_id != nil && type_id != nil)
       puts "CATEGORY:#{category_id} Y TYPE: #{type_id} AMBOS"
-      @expenses = Expense.find_year(year).find_month(month).find_category(category_id).find_type(type_id)
+      @expenses = Expense.find_year(year).find_month(month).find_category(category_id).find_type(type_id).order(date: :desc)
     end
     if (category_id != nil && type_id == nil)
       puts "CATEGORY:#{category_id} Y TYPE: #{type_id} SOLO CATEGORY"
-      @expenses = Expense.find_year(year).find_month(month).find_category(category_id.to_i)
+      @expenses = Expense.find_year(year).find_month(month).find_category(category_id.to_i).order(date: :desc)
     end
     if (category_id == nil && type_id != nil)
       puts "CATEGORY:#{category_id} Y TYPE: #{type_id} SOLO TYPE"
-      @expenses = Expense.find_year(year).find_month(month).find_type(type_id.to_i)
+      @expenses = Expense.find_year(year).find_month(month).find_type(type_id.to_i).order(date: :desc)
     end
 
     respond_to do |format|
