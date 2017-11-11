@@ -56,12 +56,39 @@ class ExpensesController < ApplicationController
     @expense = Expense.new safe_params
     if @expense.save
       flash[:success] = "Expense successfully created"
-      puts 'Se creo el expense'
-      # flash[:success] = "Expense successfully created"
+      puts 'Se creó el expense'
+      flash[:success] = "Expense successfully created"
       redirect_to expenses_path
     else
       render :new
     end
+  end
+
+  def edit
+    @expense = Expense.find params[:id]
+    respond_to do |format|
+      format.js
+      format.html
+    end
+  end
+
+  def update
+    @expense = Expense.new safe_params
+    if @expense.save
+      flash[:success] = "Expense successfully created"
+      puts 'Se editó el expense'
+      flash[:success] = "Expense successfully updated"
+      redirect_to expenses_path
+    else
+      render :new
+    end
+  end
+
+  def destroy
+    @expense = Expense.find params[:id]
+    @expense.destroy
+    flash[:success] = "Expense successfully deleted"
+    redirect_to expenses_path
   end
 
   protected
