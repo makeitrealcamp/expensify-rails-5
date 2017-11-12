@@ -1,32 +1,40 @@
 class DashboardController < ApplicationController
   def index
     @tab = :dashboard
+
+    #Set up variables for controller method
+
     last_6_months = generate_last_n_months (6)
     last_6_months_expenses = Expense.last_6_months # única petición a la base de datos
     @actual_month_amount = 0
     @last_month_amount = 0
     date_tree = {}
     month_totals = {}
-
     type_quantity = Type.count
 
     # graph-1
 
+    #Initial chart options
+
     @options_1 = {
       animationEnabled: true,
       backgroundColor: '#303336',
-      title:{
-        text: "Last 6 months"
+      legend:{
+        fontColor: "#999"
       },
       axisX: {
         interval: 1,
-        # intervalType: "month"
+        labelFontColor: "#999"
       },
       axisY: {
-        prefix: "$"
+        prefix: "$",
+        interval: 10000000,
+        labelFontColor: "#999"
       },
       data: []
     }
+
+    #Set up month_totals vatiable
 
     last_6_months.each do |m|
       date_tree[m.strftime('%b-%Y')] = last_6_months_expenses.find_all {|ex| ex.date.month == m.month }
@@ -35,6 +43,8 @@ class DashboardController < ApplicationController
         month_totals[m.strftime('%b-%Y')][i+1] = 0
       end
     end
+
+    #Fill month_totals variable
 
     6.times do |i|
       date_tree[last_6_months[i].strftime('%b-%Y')].each do |element|
@@ -48,9 +58,11 @@ class DashboardController < ApplicationController
       end
     end
 
+    #Build data object for chart
+
     type_quantity.times do |i|
       data_helper =  {
-        type: "column",
+        type: "stackedColumn",
         name: "#{Type.where('id = ?', i+1)[0].name}",
         showInLegend: true,
       }
@@ -60,14 +72,6 @@ class DashboardController < ApplicationController
     end
     @options_1 = @options_1.to_json
     puts @options_1
-
-    # {
-    #   type: "column",
-    #   name: "#{Type.where('id = ?', i+1).name}",
-    #   showInLegend: true,
-    #   dataPoints: []
-    # }
-
     # end graph-1
 
     # graph-2
