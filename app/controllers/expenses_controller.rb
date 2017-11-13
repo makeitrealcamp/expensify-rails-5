@@ -3,6 +3,7 @@ class ExpensesController < ApplicationController
   # respond_to :js
 
   def index
+    @tab = :expenses 
     @categories = Category.all
     @types = Type.all
     @months = generate_last_n_months (12)
