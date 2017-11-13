@@ -7,9 +7,9 @@ class DashboardController < ApplicationController
     #Set up variables for controller method
 
     last_6_months = generate_last_n_months (6)
-    last_6_months_expenses = Expense.last_6_months # única petición a la base de datos
-    type_quantity = Type.count
-    category_quantity = Category.count
+    last_6_months_expenses = Expense.last_6_months # petición 1 a la base de datos
+    all_types = Type.all # petición 1 a la base de datos
+    all_categories = Category.all # petición 3 a la base de datos
     actual_accum = 0
     last_accum = 0
     date_tree = {}
@@ -25,7 +25,7 @@ class DashboardController < ApplicationController
     last_6_months.each do |m|
       date_tree[m.strftime('%b-%Y')] = last_6_months_expenses.find_all {|ex| ex.date.month == m.month }
       month_totals[m.strftime('%b-%Y')] = {}
-      type_quantity.times do |i|
+      all_types.length.times do |i|
         month_totals[m.strftime('%b-%Y')][i+1] = 0
       end
     end
@@ -38,7 +38,7 @@ class DashboardController < ApplicationController
       day_totals_last_month[i] = 0
     end
 
-    category_quantity.times do |i|
+    all_categories.length.times do |i|
       category_totals[i] = 0
     end
 
@@ -122,13 +122,6 @@ class DashboardController < ApplicationController
         ]
       }
 
-      # category_totals.each_with_index do |element, index|
-      #   point = {y: element, indexLabel: "#{Category.where('id = ?', index+1)[0].name}"}
-      #   @options_3[:data][0][:dataPoints] << point
-      # end
-      #
-      # @options_3 = @options_3.to_json
-
       # end CHART-3 ---------------------------------------------
       # CHART-4 -------------------------------------------------
 
@@ -172,10 +165,10 @@ class DashboardController < ApplicationController
       # end CHART-4 -------------------------------------------------
 
       #Build data object for chart 1
-      type_quantity.times do |i|
+      all_types.length.times do |i|
         data_helper =  {
           type: "stackedColumn",
-          name: "#{Type.where('id = ?', i+1)[0].name}",
+          name: "#{all_types[i].name}",
           showInLegend: true,
         }
         dataPoints = generate_dataPoints_chart_1(i, last_6_months, month_totals)
@@ -196,7 +189,7 @@ class DashboardController < ApplicationController
 
       #Build data object for chart 3
       category_totals.each_with_index do |element, index|
-        point = {y: element, indexLabel: "#{Category.where('id = ?', index+1)[0].name}"}
+        point = {y: element, indexLabel: "#{all_categories[index].name}"}
         @options_3[:data][0][:dataPoints] << point
       end
 

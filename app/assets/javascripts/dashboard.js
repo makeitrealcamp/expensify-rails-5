@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
   var chart = new CanvasJS.Chart("expenses-chart", $('.monthly').data('chart'))
   chart.render();

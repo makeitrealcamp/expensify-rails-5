@@ -1,9 +1,8 @@
 class ExpensesController < ApplicationController
   respond_to :html, :js
-  # respond_to :js
 
   def index
-    @tab = :expenses 
+    @tab = :expenses
     @categories = Category.all
     @types = Type.all
     @months = generate_last_n_months (12)
@@ -14,12 +13,6 @@ class ExpensesController < ApplicationController
     category_id = params[:category_id] unless params[:category_id] == ''
     month = @current_month.month
     year = @current_month.year
-
-    # puts "CURRENT MONTH: #{@current_month}"
-    # puts "MONTH: #{@current_month.month}"
-    # puts "YEAR: #{@current_month.year}"
-    # puts "TYPE_ID: #{type_id}"
-    # puts "CATEGORY_ID: #{category_id}"
 
     if category_id == nil && type_id == nil
       puts 'SIN FILTRO'
@@ -40,7 +33,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.html
+      format.html { render 'index'}
     end
 
   end
