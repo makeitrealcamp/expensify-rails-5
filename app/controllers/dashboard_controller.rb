@@ -73,12 +73,18 @@ class DashboardController < ApplicationController
       },
       axisX: {
         interval: 1,
-        labelFontColor: "#999"
+        labelFontColor: "#999",
+        lineThickness: 1,
+        lineColor: "#555"
       },
       axisY: {
         prefix: "$",
         interval: 10000000,
-        labelFontColor: "#999"
+        labelFontColor: "#999",
+        gridColor: "#555",
+        gridThickness: 1,
+        lineThickness: 1,
+        lineColor: "#555"
       },
       data: []
     }
@@ -91,12 +97,18 @@ class DashboardController < ApplicationController
       backgroundColor: '#303336',
       axisX: {
         interval: 1,
-        labelFontColor: "#999"
+        labelFontColor: "#999",
+        lineThickness: 1,
+        lineColor: "#555"
       },
       axisY: {
         prefix: "$",
         interval: 3000000,
-        labelFontColor: "#999"
+        labelFontColor: "#999",
+        gridColor: "#555",
+        gridThickness: 1,
+        lineThickness: 1,
+        lineColor: "#555"
       },
       data: [{
         type: "column",
@@ -136,12 +148,18 @@ class DashboardController < ApplicationController
         },
         axisX: {
           interval: 5,
-          labelFontColor: "#999"
+          labelFontColor: "#999",
+          lineThickness: 1,
+          lineColor: "#555"
         },
         axisY: {
           prefix: "$",
           interval: 10000000,
-          labelFontColor: "#999"
+          labelFontColor: "#999",
+          gridColor: "#555",
+        gridThickness: 1,
+        lineThickness: 1,
+        lineColor: "#555"
         },
         data:
         [
@@ -202,10 +220,10 @@ class DashboardController < ApplicationController
         @options_4[:data][1][:dataPoints] << point
       end
 
-      respond_to do |format|
-        format.js
-        format.html
-      end
+      # respond_to do |format|
+      #   format.html
+      #   format.js
+      # end
 
     end
 

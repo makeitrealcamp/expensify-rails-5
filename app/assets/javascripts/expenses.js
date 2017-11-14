@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     $('.month-item.visited').attr('month_index') == undefined ? url.date = '' : url.date = $('.month-item.visited').attr('month_index')
 
-    console.log(url)
+    // console.log(url)
   }
 
   $('document').on('click','.create-expense', function(){
