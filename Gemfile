@@ -33,12 +33,11 @@ group :development, :test do
   gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'pg'
 end
 
 # Use sqlite3 as the database for Active Record
 group :production do
-  gem 'pg'
+ gem 'pg','0.21.0'
 end
 
 group :development do
